@@ -66,9 +66,3 @@ Please include tests and update documentation where applicable.
 ## License
 
 Specify your license here (e.g. MIT). Replace this line with the appropriate LICENSE file contents or link.
-
-## Contact
-
-Project maintainer: replace-with-name — replace-with-email
-
-For issues and feature requests, please use the repository issue tracker.
