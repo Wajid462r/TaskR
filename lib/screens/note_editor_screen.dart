@@ -127,38 +127,74 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
     );
   }
 
-  Widget _body() {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(20, 8, 20, MediaQuery.of(context).viewInsets.bottom + 16),
-      child: Column(children: [
-        TextField(
-          controller: _titleCtrl,
-          style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-          decoration: const InputDecoration(
-            hintText: 'Titolo',
-            hintStyle: TextStyle(color: Colors.white24, fontSize: 22),
-            border: InputBorder.none,
+Widget _body() {
+  return SafeArea(
+    child: AnimatedPadding(
+      duration: const Duration(milliseconds: 200),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      child: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height -
+                kToolbarHeight -
+                MediaQuery.of(context).padding.top,
           ),
-        ),
-        Divider(color: kBorder, height: 1),
-        const SizedBox(height: 12),
-        Expanded(
-          child: TextField(
-            controller: _contentCtrl,
-            style: const TextStyle(color: Colors.white70, fontSize: 15, height: 1.65),
-            decoration: const InputDecoration(
-              hintText: 'Scrivi i tuoi appunti...',
-              hintStyle: TextStyle(color: Colors.white24),
-              border: InputBorder.none,
-            ),
-            maxLines: null, expands: true,
-            textAlignVertical: TextAlignVertical.top,
-          ),
-        ),
-      ]),
-    );
-  }
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
+            child: IntrinsicHeight(
+              child: Column(
+                children: [
+                  TextField(
+                    controller: _titleCtrl,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    decoration: const InputDecoration(
+                      hintText: 'Titolo',
+                      hintStyle: TextStyle(
+                        color: Colors.white24,
+                        fontSize: 22,
+                      ),
+                      border: InputBorder.none,
+                    ),
+                  ),
 
+                  Divider(color: kBorder, height: 1),
+
+                  const SizedBox(height: 12),
+
+                  Expanded(
+                    child: TextField(
+                      controller: _contentCtrl,
+                      keyboardType: TextInputType.multiline,
+                      minLines: 10,
+                      maxLines: null,
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 15,
+                        height: 1.65,
+                      ),
+                      decoration: const InputDecoration(
+                        hintText: 'Scrivi i tuoi appunti...',
+                        hintStyle: TextStyle(color: Colors.white24),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
   Future<void> _save(AppState state) async {
     final title   = _titleCtrl.text.trim();
     final content = _contentCtrl.text.trim();
