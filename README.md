@@ -1,4 +1,4 @@
-# todolist
+# TaskR
 
 Professional Todo List (Flutter)
 
